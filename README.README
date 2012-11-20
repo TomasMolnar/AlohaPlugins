@@ -1,0 +1,80 @@
+FontSize, FontFamily and ColorSelector plugins updated for Aloha 0.22
+
+How to use (I assume you downloaded or forked Aloha from github https://github.com/alohaeditor/Aloha-Editor):
+1. copy /community folder to your /plugins folder
+2. configure toolbar and plugins settings. Plugins have to have at least an empty config object. See example below
+3. add plugins to be loaded to the <script> tag. See example below
+
+
+Aloha settings example:
+
+<script type="text/javascript">
+		if (window.Aloha === undefined || window.Aloha === null) {
+			var Aloha = window.Aloha = {};		
+		}
+		Aloha.settings = {
+					sidebar: {
+						disabled: true
+					},
+					toolbar: {
+						tabs: [
+								// Format Tab
+								{
+									label: 'tab.format.label',
+									showOn: { scope: 'Aloha.continuoustext' },
+									components: [
+										[
+											'bold', 'strong', 'italic', 'emphasis', 'underline', '\n',
+											'subscript', 'superscript', 'strikethrough', 'quote'
+										], [
+											'formatLink', 'formatAbbr', 'formatNumeratedHeaders', 'toggleDragDrop', '\n',
+											'toggleMetaView', 'wailang', 'toggleFormatlessPaste'
+										], [
+											'alignLeft', 'alignCenter', 'alignRight', 'alignJustify', '\n',
+											'orderedList', 'unorderedList', 'indentList', 'outdentList'
+										], [
+											'FontSizeUp', 'FontSizeDown', 'characterPicker', '\n',
+											'colorselector', 'fontcolorselector', 'fontfamily'
+										], [
+											'formatBlock'
+										]
+									]
+								},
+								// Insert Tab
+								{
+									label: 'tab.insert.label',
+									showOn: { scope: 'Aloha.continuoustext' },
+									components: []
+								},
+								]	
+					},
+					plugins: {
+						fontsize: {}, //empty config object
+						colorselector: {}, //empty config object
+						fontfamily: {
+							config:[], //We deactivate it by default
+							editables: {
+								'#content': ["fontfamily"] //We enable it for the "content" editable
+							}
+						}
+					}
+				};
+</script>
+
+Example of loading plugins - it goes after the settings are defined:
+
+<script type="text/javascript" src="aloha/lib/aloha-full.min.js" data-aloha-plugins="
+		common/ui,
+		common/format,
+		common/align,
+		common/highlighteditables,
+		common/list,
+		common/undo,
+		common/contenthandler,
+		common/paste,
+		common/characterpicker,
+		community/fontsize,
+		community/colorselector,
+		community/fontfamily
+		">
+</script>
